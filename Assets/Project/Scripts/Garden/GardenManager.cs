@@ -7,11 +7,11 @@ namespace Project.Scripts.Garden
     {
         [SerializeField] private Transform spawnRoot;
         [SerializeField] private GameObject bedPrefab;
+        [Header("Size Properties")]
         [SerializeField] private int width;
         [SerializeField] private int height;
-        [SerializeField] private float spaceBetweenBeds;
 
-        private List<GameObject> _dirtGameObjects = new List<GameObject>();
+        private List<GameObject> _bedGameObjects = new List<GameObject>();
 
         private void Awake()
         {
@@ -26,11 +26,12 @@ namespace Project.Scripts.Garden
                 for (var y = 0; y < height; y++)
                 {
                     var instantiationPos = new Vector3(-dirtSize.x * x, dirtSize.y, -dirtSize.z * y);
-                    var bed = Instantiate(bedPrefab, spawnRoot);
-                    
+
+                    var bed = Instantiate(bedPrefab, spawnRoot);   
+
                     bed.transform.localPosition = instantiationPos;
                     
-                    _dirtGameObjects.Add(bed);
+                    _bedGameObjects.Add(bed);
                 } 
             }
         }
