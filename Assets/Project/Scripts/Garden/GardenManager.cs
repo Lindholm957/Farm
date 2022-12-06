@@ -1,20 +1,27 @@
 using System.Collections.Generic;
+using Project.Scripts.Plants;
 using UnityEngine;
 
 namespace Project.Scripts.Garden
 {
     public class GardenManager : MonoBehaviour
     {
+        public static GardenManager I { get; private set; }
+
         [SerializeField] private Transform spawnRoot;
         [SerializeField] private GameObject bedPrefab;
+        [SerializeField] private List<Plant> plantObjects;
         [Header("Size Properties")]
         [SerializeField] private int width;
         [SerializeField] private int height;
 
         private List<GameObject> _bedGameObjects = new List<GameObject>();
+        public List<Plant> PlantObjects => plantObjects;
 
         private void Awake()
         {
+            I = this;
+
             CreateGarden();
         }
 

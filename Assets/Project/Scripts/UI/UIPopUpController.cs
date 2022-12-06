@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Project.Scripts.Garden;
 using Project.Scripts.Plants;
 using UnityEngine;
@@ -12,30 +13,14 @@ namespace Project.Scripts.UI
         [SerializeField] private Button treeButton;
 
         private BedController _curBedController;
+        private List<Plant> _plantObjects;
 
         private void Awake()
         {
-            carrotButton.onClick.AddListener(OnCarrotTapped);
-            grassButton.onClick.AddListener(OnGrassTapped);
-            treeButton.onClick.AddListener(OnTreeTapped);
-        }
-        
-        private void OnCarrotTapped()
-        {
-            _curBedController.SetPlantSeed(Seed.Type.Carrot);
-            Close();
-        }
-        
-        private void OnGrassTapped()
-        {
-            _curBedController.SetPlantSeed(Seed.Type.Grass);
-            Close();
-        }
-
-        private void OnTreeTapped()
-        {
-            _curBedController.SetPlantSeed(Seed.Type.Tree);
-            Close();
+            _plantObjects = GardenManager.I.PlantObjects;
+            carrotButton.onClick.AddListener(delegate {OnSeedTapped(_plantObjects[0]); });
+            grassButton.onClick.AddListener(delegate {OnSeedTapped(_plantObjects[1]); });
+            treeButton.onClick.AddListener(delegate {OnSeedTapped(_plantObjects[2]); });
         }
         
         public void Init(BedController bedController)
@@ -43,6 +28,11 @@ namespace Project.Scripts.UI
             _curBedController = bedController;
         }
 
+        private void OnSeedTapped(Plant plantObject)
+        {
+            _curBedController.SetPlantSeed(plantObject);
+            Close();
+        }
 
         public void Close()
         {
@@ -51,9 +41,9 @@ namespace Project.Scripts.UI
 
         private void OnDestroy()
         {
-            carrotButton.onClick.RemoveListener(OnCarrotTapped);
-            grassButton.onClick.RemoveListener(OnGrassTapped);
-            treeButton.onClick.RemoveListener(OnTreeTapped);
+            carrotButton.onClick.RemoveListener(delegate {OnSeedTapped(_plantObjects[0]); });
+            grassButton.onClick.RemoveListener(delegate {OnSeedTapped(_plantObjects[1]); });
+            treeButton.onClick.RemoveListener(delegate {OnSeedTapped(_plantObjects[2]); });
         }
     }
 }

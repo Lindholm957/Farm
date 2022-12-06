@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &10117593
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1958,7 +1958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &602742201
 Transform:
   m_ObjectHideFlags: 0
@@ -1966,7 +1966,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602742200}
-  m_LocalRotation: {x: 0.13129151, y: 0.11182712, z: -0.01490699, w: 0.9849036}
+  m_LocalRotation: {x: 0.13129151, y: 0.11182717, z: -0.014906997, w: 0.9849036}
   m_LocalPosition: {x: 9.57, y: -25.05, z: 2.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3106,8 +3106,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.13129151, y: 0.11182712, z: -0.01490699, w: 0.9849036}
-  m_LocalPosition: {x: 9.57, y: -25.05, z: 2.29}
+  m_LocalRotation: {x: 0.45612463, y: 0.54032433, z: -0.45612463, w: 0.54032433}
+  m_LocalPosition: {x: 1.09, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4933,6 +4933,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRoot: {fileID: 2114694555}
   bedPrefab: {fileID: 2710986505141133862, guid: 6ed4ea8e8ea6141b284f9b470e7f166a, type: 3}
+  plantObjects:
+  - {fileID: 11400000, guid: 3483344c456e14e67a5a4fcf70d7d531, type: 2}
+  - {fileID: 11400000, guid: ae743a95f8a584b2a97a606fd5b0f0b4, type: 2}
+  - {fileID: 11400000, guid: 9cdd60e75b7c349de9f11dc66cbf19a1, type: 2}
   width: 4
   height: 6
 --- !u!1001 &1707319502

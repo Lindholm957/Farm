@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Project.Scripts.Plants;
 using Project.Scripts.UI;
 using UnityEngine;
@@ -8,7 +7,6 @@ namespace Project.Scripts.Garden
 {
     public class BedController : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] private List<Plant> plantsObjects;
         [SerializeField] private MeshRenderer renderer;
         [SerializeField] private Transform plantPlace;
 
@@ -41,26 +39,15 @@ namespace Project.Scripts.Garden
             UIManager.I.CreatePopUp(transform.position, this);
         }
 
-        public void SetPlantSeed(Seed.Type type)
+        public void SetPlantSeed(Plant plantObject)
         {
-            switch (type)
-            {
-                case Seed.Type.Carrot:
-                    _curPlant = plantsObjects[0];
-                    break;
-                case Seed.Type.Grass:
-                    _curPlant = plantsObjects[1];
-                    break;
-                case Seed.Type.Tree:
-                    _curPlant = plantsObjects[2];
-                    break;
-            }
-            SowBed();
+            SowBed(plantObject);
         }
 
-        private void SowBed()
+        private void SowBed(Plant plantObject)
         {
             _state = BedState.Busy;
+            _curPlant = plantObject;
             _plantModel = Instantiate(_curPlant.Models[0], plantPlace);
         }
     }
