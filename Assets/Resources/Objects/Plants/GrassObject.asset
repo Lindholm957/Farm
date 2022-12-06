@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511585b7070346368d759b75fd6defb6, type: 3}
+  m_Name: GrassObject
+  m_EditorClassIdentifier: Assembly-CSharp:Project.Scripts.Plants:Plant
+  id: Grass
+  models:
+  - {fileID: 1101390173687332, guid: 3ea59807f24a645a79fe5dc8622fa1ee, type: 3}
+  - {fileID: 1014563891101678, guid: b99cdc062b25d4ff4a0ad6df441d4379, type: 3}
+  - {fileID: 1341026542079228, guid: 9522c9c9829e74c0e92da77bf22f9e69, type: 3}
+  - {fileID: 1678985673880670, guid: 4136671d878374ea297ef4512eba1adf, type: 3}
+  maturationTime: 10
+  collectionMethod: 1
