@@ -1,3 +1,4 @@
+using System.Collections;
 using Project.Scripts.Plants;
 using Project.Scripts.UI;
 using UnityEngine;
@@ -9,10 +10,12 @@ namespace Project.Scripts.Garden
     {
         [SerializeField] private MeshRenderer renderer;
         [SerializeField] private Transform plantPlace;
+        [SerializeField] private Transform plantTimerPos;
 
         private BedState _state = BedState.Empty;
         private Plant _curPlant;
         private GameObject _plantModel;
+        private PlantTimerController _plantTimer;
 
         public enum BedState
         {
@@ -48,7 +51,43 @@ namespace Project.Scripts.Garden
         {
             _state = BedState.Busy;
             _curPlant = plantObject;
-            _plantModel = Instantiate(_curPlant.Models[0], plantPlace);
+            ShowPlantTimer();
+            StartCoroutine(PlantGrowing());
+        }
+        
+        private void ShowPlantTimer()
+        {
+            _plantTimer = UIManager.I.CreatePlantTimer(plantTimerPos.position, this);
+            StartCoroutine(StartTimer());
+        }
+
+        private IEnumerator PlantGrowing()
+        {
+            var growingPhaseNum = _curPlant.Models.Count;
+            for (var i = 0; i < growingPhaseNum; i++)
+            {
+                yield return new WaitForSeconds(_curPlant.MaturationTime / growingPhaseNum);   
+
+                if (_plantModel != null)
+                {
+                    Destroy(_plantModel);
+                }
+                _plantModel = Instantiate(_curPlant.Models[i], plantPlace);
+            }
+        }
+        
+        private IEnumerator StartTimer()
+        {
+            var timeLeft = _curPlant.MaturationTime;
+            
+            while (timeLeft > 0)
+            {
+                timeLeft -= Time.deltaTime;
+                _plantTimer.CurValue = Mathf.FloorToInt(timeLeft).ToString();
+                yield return null;
+            }
+            _state = BedState.Ready;
+            _plantTimer.Hide();
         }
     }
 }

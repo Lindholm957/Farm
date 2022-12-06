@@ -1,4 +1,5 @@
 using Project.Scripts.Garden;
+using TMPro;
 using UnityEngine;
 
 namespace Project.Scripts.UI
@@ -11,6 +12,7 @@ namespace Project.Scripts.UI
         [SerializeField] private GameObject gameScreen;
         [Space]
         [SerializeField] private GameObject popUpPrefab;
+        [SerializeField] private GameObject plantTimerPrefab;
 
         private void Awake()
         {
@@ -22,6 +24,16 @@ namespace Project.Scripts.UI
             var popUp = Instantiate(popUpPrefab, gameScreen.transform);
             popUp.GetComponent<UIPopUpController>().Init(parentBed);
             popUp.transform.position = Camera.main.WorldToScreenPoint(worldPos);
+        }
+        
+        public PlantTimerController CreatePlantTimer(Vector3 worldPos, BedController parentBed)
+        {
+            var timer = Instantiate(plantTimerPrefab, gameScreen.transform);
+            timer.transform.position = Camera.main.WorldToScreenPoint(worldPos);
+            
+            var timerController = timer.GetComponent<PlantTimerController>();
+            
+            return timerController;
         }
     }
 }
