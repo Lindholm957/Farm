@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Project.Scripts.Events.Base;
 using Project.Scripts.Events.Systems;
+using Project.Scripts.Garden;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,6 +21,8 @@ namespace Project.Scripts.Player
         private Vector3 _target;
         
         private float _destinationReachedTreshold = 0.5f;
+
+        private BedController _curBedController;
 
         private const string Await = "Idle";
         private const string Run = "Run";
@@ -54,8 +57,9 @@ namespace Project.Scripts.Player
             if (_curTask == Task.Free)
             {
                 _curTask = Task.Plant;
-            
-                RunToTarget(arg0.Sender.transform.position);   
+                
+                _curBedController = arg0.Sender;
+                RunToTarget(_curBedController.PlantPlace.transform.position);   
             }
         }
 
@@ -73,7 +77,6 @@ namespace Project.Scripts.Player
             animator.SetTrigger(Run);
             _target = targetPos;
             navMesh.SetDestination(_target);
-            Debug.Log(_target);
         }
         
         private void Update()
@@ -110,7 +113,7 @@ namespace Project.Scripts.Player
             _curTask = Task.Free;
             
             GlobalEventSystem.I.SendEvent(EventNames.Player.SeedWasPlanted,
-                new GameEventArgs(null));
+                new GameEventArgs(_curBedController));
 
             RunToTarget(_startPos);
         }

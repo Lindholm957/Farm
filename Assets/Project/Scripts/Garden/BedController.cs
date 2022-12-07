@@ -1,4 +1,6 @@
 using System.Collections;
+using Project.Scripts.Events.Base;
+using Project.Scripts.Events.Systems;
 using Project.Scripts.Plants;
 using Project.Scripts.UI;
 using UnityEngine;
@@ -16,6 +18,7 @@ namespace Project.Scripts.Garden
         private Plant _curPlant;
         private GameObject _plantModel;
         private PlantTimerController _plantTimer;
+        private Plant _selectedSeed;
 
         public Transform PlantPlace => plantPlace;
 
@@ -27,7 +30,12 @@ namespace Project.Scripts.Garden
         }
 
         public Vector3 Size => renderer.bounds.size;
-        
+
+        private void Awake()
+        {
+            GlobalEventSystem.I.Subscribe(EventNames.Player.SeedWasPlanted, OnSeedWasPlanted);
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
             if (_state == BedState.Empty)
@@ -38,6 +46,14 @@ namespace Project.Scripts.Garden
                 // GlobalEventSystem.I.SendEvent(EventNames.Game.PullingPlantHasChosen);
             }
         }
+        
+        private void OnSeedWasPlanted(GameEventArgs arg0)
+        {
+            if (arg0.Sender == this)
+            {
+                StartGrowing();
+            }
+        }
 
         private void ShowSeeds()
         {
@@ -46,13 +62,15 @@ namespace Project.Scripts.Garden
 
         public void SetPlantSeed(Plant plantObject)
         {
-            SowBed(plantObject);
+            _selectedSeed = plantObject;
         }
 
-        private void SowBed(Plant plantObject)
+        private void StartGrowing()
         {
             _state = BedState.Busy;
-            _curPlant = plantObject;
+            
+            _curPlant = _selectedSeed;
+            
             ShowPlantTimer();
             StartCoroutine(PlantGrowing());
         }

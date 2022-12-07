@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Garden;
+using UnityEngine;
 
 namespace Project.Scripts.Events.Base
 {
     public class GameEventArgs
     {
-        public GameObject Sender { get; }
+        public BedController Sender { get; }
         
-        public GameEventArgs(GameObject sender)
+        public GameEventArgs(BedController sender)
         {
             Sender = sender;
         }

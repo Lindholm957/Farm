@@ -33,7 +33,7 @@ namespace Project.Scripts.UI
         private void OnSeedTapped(Plant plantObject)
         {
             GlobalEventSystem.I.SendEvent(EventNames.Game.SeedHasChosen,
-                new GameEventArgs(_curBedController.PlantPlace.gameObject));
+                new GameEventArgs(_curBedController));
             
             _curBedController.SetPlantSeed(plantObject);
             Close();
