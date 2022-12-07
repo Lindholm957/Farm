@@ -1,5 +1,4 @@
 using Project.Scripts.Garden;
-using TMPro;
 using UnityEngine;
 
 namespace Project.Scripts.UI
