@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Project.Scripts.Events.Base;
+using Project.Scripts.Events.Systems;
 using Project.Scripts.Garden;
 using Project.Scripts.Plants;
 using UnityEngine;
@@ -30,6 +32,9 @@ namespace Project.Scripts.UI
 
         private void OnSeedTapped(Plant plantObject)
         {
+            GlobalEventSystem.I.SendEvent(EventNames.Game.SeedHasChosen,
+                new GameEventArgs(_curBedController.PlantPlace.gameObject));
+            
             _curBedController.SetPlantSeed(plantObject);
             Close();
         }

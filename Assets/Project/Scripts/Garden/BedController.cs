@@ -17,6 +17,8 @@ namespace Project.Scripts.Garden
         private GameObject _plantModel;
         private PlantTimerController _plantTimer;
 
+        public Transform PlantPlace => plantPlace;
+
         public enum BedState
         {
             Empty,
@@ -33,7 +35,7 @@ namespace Project.Scripts.Garden
               ShowSeeds();  
             } else if (_state == BedState.Ready)
             {
-                
+                // GlobalEventSystem.I.SendEvent(EventNames.Game.PullingPlantHasChosen);
             }
         }
 
