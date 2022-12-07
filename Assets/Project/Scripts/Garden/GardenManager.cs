@@ -14,6 +14,7 @@ namespace Project.Scripts.Garden
         [Header("Size Properties")]
         [SerializeField] private int width;
         [SerializeField] private int height;
+        [SerializeField] private float spaceBetweenBeds;
 
         private List<GameObject> _bedGameObjects = new List<GameObject>();
         public List<Plant> PlantObjects => plantObjects;
@@ -27,15 +28,15 @@ namespace Project.Scripts.Garden
 
         private void CreateGarden()
         {
-            var dirtSize = bedPrefab.GetComponent<BedController>().Size;
+            var bedSize = bedPrefab.GetComponent<BedController>().Size;
             for (var x = 0; x < width; x++)
             {
                 for (var y = 0; y < height; y++)
                 {
-                    var instantiationPos = new Vector3(-dirtSize.x * x, dirtSize.y, -dirtSize.z * y);
+                    var instantiationPos = new Vector3(-bedSize.x * x - spaceBetweenBeds * x,
+                        bedSize.y, -bedSize.z * y - spaceBetweenBeds * y);
 
-                    var bed = Instantiate(bedPrefab, spawnRoot);   
-
+                    var bed = Instantiate(bedPrefab, spawnRoot);
                     bed.transform.localPosition = instantiationPos;
                     
                     _bedGameObjects.Add(bed);
