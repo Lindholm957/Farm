@@ -1,4 +1,6 @@
-﻿namespace Project.Scripts.Events.Base
+﻿using Project.Scripts.Plants;
+
+namespace Project.Scripts.Events.Base
 {
     public static class EventNames
     {
@@ -10,6 +12,7 @@
             Player.PlantingStarted,
             Player.SeedWasPlanted,
             Player.PlantWasPulled,
+            Plant.HasGrown,
         };
 
         public static class Game
@@ -24,6 +27,11 @@
             public static string PlantingStarted => "planting_started";
             public static string SeedWasPlanted => "seed_was_planted";
             public static string PlantWasPulled => "plant_was_pulled";
+        }
+        
+        public static class Plant
+        {
+            public static string HasGrown => "has_grown";
         }
 
         public static class Ui

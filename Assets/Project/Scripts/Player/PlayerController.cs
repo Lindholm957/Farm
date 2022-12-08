@@ -126,7 +126,7 @@ namespace Project.Scripts.Player
         private IEnumerator Pulling()
         {
             _curState = State.Pulling;
-            switch (_curBedController.PlantCollectionType)
+            switch (_curBedController.SelectedSeed.CollectionMethod)
             {
                 case Plants.Plant.CollectionType.Mowing:
                     animator.SetTrigger(MowPlant);

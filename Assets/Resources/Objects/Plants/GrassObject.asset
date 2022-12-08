@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511585b7070346368d759b75fd6defb6, type: 3}
   m_Name: GrassObject
   m_EditorClassIdentifier: Assembly-CSharp:Project.Scripts.Plants:Plant
-  id: Grass
+  type: 1
   models:
   - {fileID: 1101390173687332, guid: 3ea59807f24a645a79fe5dc8622fa1ee, type: 3}
   - {fileID: 1014563891101678, guid: b99cdc062b25d4ff4a0ad6df441d4379, type: 3}

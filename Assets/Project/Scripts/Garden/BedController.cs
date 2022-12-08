@@ -21,7 +21,7 @@ namespace Project.Scripts.Garden
         private Plant _selectedSeed;
 
         public Transform PlantPlace => plantPlace;
-        public Plant.CollectionType PlantCollectionType => _selectedSeed.CollectionMethod;
+        public Plant SelectedSeed => _selectedSeed;
 
         public enum BedState
         {
@@ -124,6 +124,9 @@ namespace Project.Scripts.Garden
                 yield return null;
             }
             plantTimer.text = "";
+            
+            GlobalEventSystem.I.SendEvent(EventNames.Plant.HasGrown,
+                new GameEventArgs(this));
 
             _state = BedState.Ready;
         }

@@ -6,7 +6,7 @@ namespace Project.Scripts.Plants
     [CreateAssetMenu(fileName = "Plant Object", menuName = "Plant Object", order = 51)]
     public class Plant : ScriptableObject
     {
-        [SerializeField] private string id;
+        [SerializeField] private Seed.Type type;
         [SerializeField] private List<GameObject> models;
         [Space] 
         [SerializeField] private float maturationTime;
@@ -20,7 +20,7 @@ namespace Project.Scripts.Plants
             Missing
         };
         
-        public string Id => id;
+        public Seed.Type Type => type;
         public List<GameObject> Models => models;
         public float MaturationTime => maturationTime;
         public CollectionType CollectionMethod => collectionMethod;

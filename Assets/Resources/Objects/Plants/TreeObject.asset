@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511585b7070346368d759b75fd6defb6, type: 3}
   m_Name: TreeObject
   m_EditorClassIdentifier: Assembly-CSharp:Project.Scripts.Plants:Plant
-  id: Tree
+  type: 2
   models:
   - {fileID: 1412878908807930, guid: b8193a03c27564d82a8551b3b6ac6806, type: 3}
   - {fileID: 1427702760034038, guid: ee20970739ed5431789aeea8738b72c5, type: 3}
