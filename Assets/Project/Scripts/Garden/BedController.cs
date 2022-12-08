@@ -3,6 +3,7 @@ using Project.Scripts.Events.Base;
 using Project.Scripts.Events.Systems;
 using Project.Scripts.Plants;
 using Project.Scripts.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,12 +13,11 @@ namespace Project.Scripts.Garden
     {
         [SerializeField] private MeshRenderer renderer;
         [SerializeField] private Transform plantPlace;
-        [SerializeField] private Transform plantTimerPos;
+        [SerializeField] private TMP_Text plantTimer;
 
         private BedState _state = BedState.Empty;
         private Plant _curPlant;
         private GameObject _plantModel;
-        private PlantTimerController _plantTimer;
         private Plant _selectedSeed;
 
         public Transform PlantPlace => plantPlace;
@@ -85,14 +85,7 @@ namespace Project.Scripts.Garden
             
             _curPlant = _selectedSeed;
             
-            ShowPlantTimer();
             StartCoroutine(PlantGrowing());
-        }
-        
-        private void ShowPlantTimer()
-        {
-            _plantTimer = UIManager.I.CreatePlantTimer(plantTimerPos.position, this);
-            StartCoroutine(StartTimer());
         }
 
         private void ClearBed()
@@ -105,6 +98,8 @@ namespace Project.Scripts.Garden
 
         private IEnumerator PlantGrowing()
         {
+            StartCoroutine(StartTimer());
+
             var growingPhaseNum = _curPlant.Models.Count;
             for (var i = 0; i < growingPhaseNum; i++)
             {
@@ -125,11 +120,12 @@ namespace Project.Scripts.Garden
             while (timeLeft > 0)
             {
                 timeLeft -= Time.deltaTime;
-                _plantTimer.CurValue = Mathf.FloorToInt(timeLeft).ToString();
+                plantTimer.text = Mathf.FloorToInt(timeLeft).ToString();
                 yield return null;
             }
+            plantTimer.text = "";
+
             _state = BedState.Ready;
-            _plantTimer.Hide();
         }
     }
 }

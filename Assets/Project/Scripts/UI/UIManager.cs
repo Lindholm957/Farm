@@ -1,3 +1,5 @@
+using Project.Scripts.Events.Base;
+using Project.Scripts.Events.Systems;
 using Project.Scripts.Garden;
 using UnityEngine;
 
@@ -11,11 +13,17 @@ namespace Project.Scripts.UI
         [SerializeField] private GameObject gameScreen;
         [Space]
         [SerializeField] private GameObject popUpPrefab;
-        [SerializeField] private GameObject plantTimerPrefab;
 
         private void Awake()
         {
             I = this;
+        }
+
+        public void StartButtonClicked()
+        {
+            GlobalEventSystem.I.SendEvent(EventNames.Game.Started, new GameEventArgs(null));
+            mainMenuScreen.SetActive(false);
+            gameScreen.SetActive(true);
         }
 
         public void CreatePopUp(Vector3 worldPos, BedController parentBed)
@@ -23,16 +31,6 @@ namespace Project.Scripts.UI
             var popUp = Instantiate(popUpPrefab, gameScreen.transform);
             popUp.GetComponent<UIPopUpController>().Init(parentBed);
             popUp.transform.position = Camera.main.WorldToScreenPoint(worldPos);
-        }
-        
-        public PlantTimerController CreatePlantTimer(Vector3 worldPos, BedController parentBed)
-        {
-            var timer = Instantiate(plantTimerPrefab, gameScreen.transform);
-            timer.transform.position = Camera.main.WorldToScreenPoint(worldPos);
-            
-            var timerController = timer.GetComponent<PlantTimerController>();
-            
-            return timerController;
         }
     }
 }

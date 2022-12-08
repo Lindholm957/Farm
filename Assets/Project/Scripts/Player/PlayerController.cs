@@ -108,6 +108,9 @@ namespace Project.Scripts.Player
             _curState = State.Planting;
             animator.SetTrigger(Plant);
             
+            GlobalEventSystem.I.SendEvent(EventNames.Player.PlantingStarted,
+                new GameEventArgs(_curBedController));
+
             while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 < 0.99f)
             {
                 yield return null;
