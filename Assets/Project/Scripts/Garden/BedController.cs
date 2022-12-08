@@ -21,6 +21,7 @@ namespace Project.Scripts.Garden
         private Plant _selectedSeed;
 
         public Transform PlantPlace => plantPlace;
+        public Plant.CollectionType PlantCollectionType => _selectedSeed.CollectionMethod;
 
         public enum BedState
         {
@@ -34,6 +35,7 @@ namespace Project.Scripts.Garden
         private void Awake()
         {
             GlobalEventSystem.I.Subscribe(EventNames.Player.SeedWasPlanted, OnSeedWasPlanted);
+            GlobalEventSystem.I.Subscribe(EventNames.Player.PlantWasPulled, OnPlantWasPulled);
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -43,7 +45,11 @@ namespace Project.Scripts.Garden
               ShowSeeds();  
             } else if (_state == BedState.Ready)
             {
-                // GlobalEventSystem.I.SendEvent(EventNames.Game.PullingPlantHasChosen);
+                if (_selectedSeed.CollectionMethod != Plant.CollectionType.Missing)
+                {
+                    GlobalEventSystem.I.SendEvent(EventNames.Game.PullingPlantHasChosen,
+                        new GameEventArgs(this));
+                }
             }
         }
         
@@ -52,6 +58,14 @@ namespace Project.Scripts.Garden
             if (arg0.Sender == this)
             {
                 StartGrowing();
+            }
+        }
+        
+        private void OnPlantWasPulled(GameEventArgs arg0)
+        {
+            if (arg0.Sender == this)
+            {
+                ClearBed();
             }
         }
 
@@ -79,6 +93,14 @@ namespace Project.Scripts.Garden
         {
             _plantTimer = UIManager.I.CreatePlantTimer(plantTimerPos.position, this);
             StartCoroutine(StartTimer());
+        }
+
+        private void ClearBed()
+        {
+            _state = BedState.Empty;
+            
+            Destroy(_plantModel);
+            _selectedSeed = null;
         }
 
         private IEnumerator PlantGrowing()

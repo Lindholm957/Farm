@@ -11,9 +11,9 @@ namespace Project.Scripts.Plants
         [Space] 
         [SerializeField] private float maturationTime;
 
-        [SerializeField] private Collection collectionMethod;
+        [SerializeField] private CollectionType collectionMethod;
 
-        public enum Collection
+        public enum CollectionType
         {
             PickUp,
             Mowing,
@@ -23,6 +23,6 @@ namespace Project.Scripts.Plants
         public string Id => id;
         public List<GameObject> Models => models;
         public float MaturationTime => maturationTime;
-        public Collection CollectionMethod => collectionMethod;
+        public CollectionType CollectionMethod => collectionMethod;
     }
 }

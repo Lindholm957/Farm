@@ -27,7 +27,8 @@ namespace Project.Scripts.Player
         private const string Await = "Idle";
         private const string Run = "Run";
         private const string Plant = "Dig And Plant";
-        private const string Pull = "Pull Plant";
+        private const string PickUpPlant = "Pull Plant";
+        private const string MowPlant = "Mow Plant";
 
         private enum State
         {
@@ -67,7 +68,8 @@ namespace Project.Scripts.Player
         {
             _curTask = Task.Pull;
             
-            RunToTarget(arg0.Sender.transform.position);
+            _curBedController = arg0.Sender;
+            RunToTarget(_curBedController.PlantPlace.transform.position);
         }
 
         private void RunToTarget(Vector3 targetPos)
@@ -121,7 +123,15 @@ namespace Project.Scripts.Player
         private IEnumerator Pulling()
         {
             _curState = State.Pulling;
-            animator.SetTrigger(Pull);
+            switch (_curBedController.PlantCollectionType)
+            {
+                case Plants.Plant.CollectionType.Mowing:
+                    animator.SetTrigger(MowPlant);
+                    break;
+                case Plants.Plant.CollectionType.PickUp:
+                    animator.SetTrigger(PickUpPlant);
+                    break;
+            }
             
             while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 < 0.99f)
             {
@@ -131,7 +141,7 @@ namespace Project.Scripts.Player
             _curTask = Task.Free;
             
             GlobalEventSystem.I.SendEvent(EventNames.Player.PlantWasPulled,
-                new GameEventArgs(null));
+                new GameEventArgs(_curBedController));
 
             RunToTarget(_startPos);
         }
